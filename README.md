@@ -1,4 +1,4 @@
-🚨 GUARDION VISION
+🚨 GUARDIAN VISION
 
 Intelligent Real-Time Threat Detection & Smart Surveillance System with Women Safety Focus
 
@@ -6,7 +6,7 @@ Intelligent Real-Time Threat Detection & Smart Surveillance System with Women Sa
 
 📌 Overview
 
-Guardion Vision AI is an advanced AI-powered surveillance system designed to transform traditional CCTV cameras into proactive threat detection units.
+Guardian Vision AI is an advanced AI-powered surveillance system designed to transform traditional CCTV cameras into proactive threat detection units.
 
 The system detects:
 
@@ -43,7 +43,7 @@ There is a need for a scalable, intelligent surveillance system that can:
 
 💡 Our Solution
 
-GuardionVision AI combines:
+GuardianVision AI combines:
 
 - Real-time human detection
 - Pose estimation
@@ -125,8 +125,8 @@ Backend
 - Python
 - OpenCV
 - YOLOv8
-- MediaPipe / OpenPose
-- TensorFlow / PyTorch
+- MediaPipe 
+- PyTorch
 - Flask / FastAPI
 
 Frontend
@@ -145,7 +145,7 @@ Alert System
 
 🔐 Privacy & Ethical AI
 
-GuardionVision is built with a privacy-first architecture:
+GuardianVision is built with a privacy-first architecture:
 
 - Face blurring enabled
 - No identity storage
