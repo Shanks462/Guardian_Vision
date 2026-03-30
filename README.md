@@ -83,22 +83,25 @@ This makes it particularly effective for early identification of potential threa
 
 Our system operates dynamically using a robust Go-Python hybrid architecture:
 
-**[ Camera Subsystem / CCTV Feeds ]**
-       ↓
-**[ Go Service Manager (`cmd/main.go`) ]** *(Spawns & Tracks Processes)*
-       ↓
-**[ Python AI Subprocesses (`DetectionSoftware/main.py`) ]**
-   ├─ Frame Extraction (OpenCV)
-   ├─ Object Detection (YOLOv8)
-   └─ Threat Logic Engine
-       ↓
-*(JSON Event Stream via stdout)*
-       ↓
-**[ Go Event Handler (`handler/Camera/`) ]** *(Asynchronous Reader)*
-   ├─ Date-based Continuous Logging (`logs/YYYY-MM-DD/`)
-   └─ Event Routing
-       ↓
-**[ Dashboard / Alerting Systems ]** *(Upcoming)*
+```mermaid
+graph TD
+    A[Camera Subsystem / CCTV Feeds] -->|Configured in config.yaml| B
+    
+    subgraph Go Backend
+        B(Go Service Manager<br/>`cmd/main.go`) -->|Spawns Subprocesses| C
+        E(Go Event Handler<br/>`handler/Camera/`) -->|Writes to file| F[Date-based Log Storage<br/>`logs/YYYY-MM-DD/`]
+        E -->|Routes Event| G[Dashboard / Alerting Systems<br/>Upcoming]
+    end
+    
+    subgraph Python AI Engine
+        C{Python Process<br/>`DetectionSoftware/main.py`}
+        C -->|1. Frame Extraction| C1[OpenCV]
+        C1 -->|2. Object Detection| C2[YOLOv8 & MediaPipe]
+        C2 -->|3. Threat Logic| C3[Distance/Behavior Heuristics]
+    end
+    
+    C3 -->|JSON Event Stream via stdout| E
+```
 
 ---
 
