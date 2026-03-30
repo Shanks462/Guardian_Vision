@@ -1,7 +1,40 @@
+# ====================
+# Go (Golang)
+# ====================
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories
+vendor/
+
+# Go workspace file
+go.work
+go.work.sum
+
+# Typical main binary build name
+Guardian_Vision
+
+
+# ====================
+# Python
+# ====================
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+# C extensions
+*.so
 
 # Environments
 .env
@@ -9,25 +42,59 @@ __pycache__/
 env/
 venv/
 ENV/
-
-# VSCode
-.vscode/
-
-# MacOS
-.DS_Store
-
-# PyCharm
+env.bak/
+venv.bak/
 
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# PyTorch Models
+# PyTorch Models / Data
 *.pt
 *.pth
 
+
+# ====================
+# macOS
+# ====================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+
+# ====================
+# IDE / Editors
+# ====================
+# VSCode
+.vscode/
+
+# PyCharm / IntelliJ
+.idea/
+
+# Local History
+.history/
+
+
+# ====================
+# Project Specific
+# ====================
 # YOLO specific
 runs/
-Mood.txt
 video.mp4
+
+# Project Runtime / Output
 logs/
 config.yaml
+Mood.txt

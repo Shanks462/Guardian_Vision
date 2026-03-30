@@ -1,39 +1,36 @@
-🚨 GUARDIAN VISION
+# 🚨 GUARDIAN VISION
 
-Intelligent Real-Time Threat Detection & Smart Surveillance System with Women Safety Focus
+**Intelligent Real-Time Threat Detection & Smart Surveillance System with Women Safety Focus**
 
 ---
 
-📌 Overview
+## 📌 Overview
 
 Guardian Vision AI is an advanced AI-powered surveillance system designed to transform traditional CCTV cameras into proactive threat detection units.
 
 The system detects:
-
 - Violent behavior
 - Physical aggression
 - Suspicious interactions
 - Abnormal crowd dynamics
 - Potential harassment scenarios
 
-🔴 Primary Focus: Enhancing women’s safety in public spaces by identifying early signs of harassment, forced interaction, stalking patterns, or assault-related behavior.
+**🔴 Primary Focus:** Enhancing women’s safety in public spaces by identifying early signs of harassment, forced interaction, stalking patterns, or assault-related behavior.
 
-Instead of passively recording footage, RakshaVision analyzes live video streams in real time and instantly alerts authorities or response teams with contextual evidence.
+Instead of passively recording footage, Guardian Vision analyzes live video streams in real time and instantly alerts authorities or response teams with contextual evidence.
 
 ---
 
-🎯 Problem Statement
+## 🎯 Problem Statement
 
 Women’s safety remains a critical concern in public environments such as streets, transportation hubs, campuses, and marketplaces.
 
-Traditional CCTV systems:
-
+**Traditional CCTV systems:**
 - Only record incidents
 - Require manual monitoring
 - React after the event occurs
 
 There is a need for a scalable, intelligent surveillance system that can:
-
 - Detect potential harassment or assault scenarios in real time
 - Identify aggressive or unsafe interactions
 - Reduce response time significantly
@@ -41,10 +38,9 @@ There is a need for a scalable, intelligent surveillance system that can:
 
 ---
 
-💡 Our Solution
+## 💡 Our Solution
 
 GuardianVision AI combines:
-
 - Real-time human detection
 - Pose estimation
 - Interaction modeling
@@ -52,7 +48,6 @@ GuardianVision AI combines:
 - Anomaly detection algorithms
 
 The system evaluates behavioral patterns rather than relying solely on object detection, allowing it to detect:
-
 - One person forcefully pulling another
 - Sudden aggressive motion
 - Group surrounding a single individual
@@ -63,114 +58,86 @@ This makes it particularly effective for early identification of potential threa
 
 ---
 
-🧠 How It Works
+## 🧠 How It Works
 
-1. Live CCTV Feed Processing
+1. **Service Orchestration (Go Backend)**
+   - The Go-based main application acts as the central control structure.
+   - It parses system configurations (`config.yaml`) and efficiently oversees concurrent camera streams.
    
-   - Video frames extracted in real time.
+2. **Live CCTV Feed Processing (Python Engine)**
+   - The Go backend automatically spawns headless Python detection subprocesses for each camera source.
+   - Video frames are extracted continuously in real-time by the Python inference engine.
 
-2. Person Detection
-   
-   - YOLO-based model identifies individuals.
+3. **Detection & Behavioral Analysis**
+   - **YOLOv8** identifies individuals within the video feed.
+   - **MediaPipe** (optional) maps body keypoints to assess behavioral context.
+   - The system calculates distances and analyzes movement to classify potential threats, checking for close, aggressive proximity.
 
-3. Pose Estimation
-   
-   - Body keypoints tracked using pose estimation.
-
-4. Interaction Analysis
-   
-   - Distance tracking between individuals
-   - Sudden velocity spikes
-   - Dragging or pulling gestures
-   - Surrounding behavior patterns
-
-5. Threat Classification
-   
-   - Deep learning model classifies behavior:
-     - Normal
-     - Suspicious
-     - Violent
-
-6. Anomaly Detection Layer
-   
-   - Identifies unusual movement patterns or crowd dynamics.
-
-7. Alert Engine
-   
-   - Sends real-time alert with:
-     - Timestamp
-     - Snapshot evidence
-     - Location tag
-     - Confidence score
+4. **Event Streaming & Logging**
+   - When a designated threat (e.g., Harassment/Assault) is detected, the Python engine emits a structured JSON alert to `stdout`.
+   - The Go event handler intercepts these JSON outputs in real-time and orchestrates date-stamped log storage and future alert dispatching.
 
 ---
 
-🏗️ System Architecture
+## 🏗️ System Architecture
 
-CCTV Feed
-→ Frame Extraction
-→ Person Detection
-→ Pose Estimation
-→ Interaction Modeling
-→ Threat Classification
-→ Alert Engine
-→ Dashboard & Database
+Our system operates dynamically using a robust Go-Python hybrid architecture:
 
----
-
-⚙️ Tech Stack
-
-Backend
-
-- Python
-- OpenCV
-- YOLOv8
-- MediaPipe 
-- PyTorch
-- Flask / FastAPI
-
-Frontend
-
-- React / HTML-CSS-JS Dashboard
-
-Database
-
-- Firebase / PostgreSQL
-
-Alert System
-
-- SMS API / Telegram Bot / Web Notifications
+**[ Camera Subsystem / CCTV Feeds ]**
+       ↓
+**[ Go Service Manager (`cmd/main.go`) ]** *(Spawns & Tracks Processes)*
+       ↓
+**[ Python AI Subprocesses (`DetectionSoftware/main.py`) ]**
+   ├─ Frame Extraction (OpenCV)
+   ├─ Object Detection (YOLOv8)
+   └─ Threat Logic Engine
+       ↓
+*(JSON Event Stream via stdout)*
+       ↓
+**[ Go Event Handler (`handler/Camera/`) ]** *(Asynchronous Reader)*
+   ├─ Date-based Continuous Logging (`logs/YYYY-MM-DD/`)
+   └─ Event Routing
+       ↓
+**[ Dashboard / Alerting Systems ]** *(Upcoming)*
 
 ---
 
-🔐 Privacy & Ethical AI
+## ⚙️ Tech Stack
+
+**Backend & Orchestration**
+- **Go (Golang)**: Scalability, Concurrency, Process Management, Data Streams
+
+**AI / Machine Learning Engine**
+- **Python**
+- **OpenCV**: Feed handling
+- **Ultralytics YOLOv8**: Real-time object tracking
+- **NumPy**: Distance and geometric calculations
+- **MediaPipe**: Pose Estimation heuristics
+
+**Data Persistence**
+- Secure Local Storage via partitioned log indexing.
+
+---
+
+## 🔐 Privacy & Ethical AI
 
 GuardianVision is built with a privacy-first architecture:
-
-- Face blurring enabled
-- No identity storage
-- Incident-based recording only
-- On-device processing when possible
-- Ethical AI design principles
-
-The system focuses on behavioral threat detection, not identity tracking.
+- Focuses entirely on behavior mapping rather than structural facial recognition.
+- No identity caching or PII (Personally Identifiable Information) storage.
+- Operates statelessly, only storing log events when an aggressive threshold is explicitly broken.
 
 ---
 
-📊 Key Features
+## 📊 Key Features
 
-- 🎥 Real-time monitoring
-- ⚠️ Intelligent threat detection
-- 👩 Women safety-focused risk analysis
-- 📍 Geo-tagged alerts
-- 📈 Risk heatmap analytics
-- 🗂️ Incident history tracking
-- 📊 Confidence-based alert scoring
-- 🔄 Feedback loop for model improvement
+- 🎥 **Scalable Camera Orchestration:** Handled concurrently via Go routines.
+- ⚠️ **Intelligent Threat Detection:** Heuristic-based alerts for violent scenarios.
+- 👩 **Women Safety-Focused Analytics:** specifically prioritizing risk scenarios common to harassment.
+- 🗂️ **Zero-overhead Communication:** Real-time data piping between native binaries and python instances without complex HTTP overheads.
 
 ---
 
-🌍 Use Cases
+## 🌍 Use Cases
 
 - Smart Cities
 - Public Transport Systems
@@ -179,39 +146,17 @@ The system focuses on behavioral threat detection, not identity tracking.
 - Corporate Offices
 - Public Events
 
-Primary Impact: Strengthening women’s safety and proactive threat prevention in public spaces.
+**Primary Impact:** Strengthening women’s safety and proactive threat prevention in public spaces.
 
 ---
 
-📈 Innovation Highlights
+## 👥 Team
 
-- Converts passive CCTV into proactive AI defense system
-- Hybrid detection approach (Rule-based + Deep Learning)
-- Women-safety-focused behavioral modeling
-- Privacy-preserving design
-- Scalable cloud + edge deployment model
-
----
-
-🚀 Future Enhancements
-
-- Audio-based distress detection
-- Emergency app integration
-- Edge device deployment (Jetson / Edge TPU)
-- Predictive risk zone mapping
-- Smart city integration
+- **SHANKS**
+- **ADITYA RAWAT**
+- **ADITYA SHUKLA**
+- **VINAYAK**
 
 ---
 
-👥 Team
-
- - SHANKS
- - ADITYA RAWAT
- - ADITYA SHUKLA
- - VINAYAK
-   
----
-
-Building smarter security. Protecting lives proactively.
-
----
+*Building smarter security. Protecting lives proactively.*
