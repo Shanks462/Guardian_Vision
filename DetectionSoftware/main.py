@@ -40,13 +40,23 @@ def main():
         threat = detect_threat(persons)
 
         current_time = time.time()
+        # Video time in milliseconds
+        msec = cap.get(cv2.CAP_PROP_POS_MSEC)
+        seconds = int(msec // 1000)
+        h = seconds // 3600
+        m = (seconds % 3600) // 60
+        s = seconds % 60
+        clip_time = f"{h:02}:{m:02}:{s:02}"
+
+        # Current date
+        today_date = time.strftime("%Y-%m-%d")
 
         # Build an event based on detection
         event_msg = None
         confidence = 0.0
 
         if threat:
-            event_msg = "Threat Detected (Harassment/Assault)"
+            event_msg = f"Threat Detected (Clip Time: {clip_time}, Date: {today_date})"
             confidence = 0.95
 
         # Print JSON event to stdout if an event occurred and cooldown has passed

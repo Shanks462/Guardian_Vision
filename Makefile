@@ -1,2 +1,2 @@
-run:
-	go run cmd/main.go
+build:
+	go build -o medusa ./cmd/main.go

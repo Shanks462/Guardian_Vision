@@ -8,15 +8,12 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-
-
 type Camera struct {
-	Name string `yaml:"name"`
-	Source  string `yaml:"source"`
+	Name   string `yaml:"name"`
+	Source string `yaml:"source"`
 }
 type Config struct {
 	Cameras []Camera
-	
 }
 type Event struct {
 	Camera     string
